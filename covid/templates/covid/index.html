@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Corona Stats</title>
+
+    <!-- <script src="https://tinyurl.com/jquery-w3schools"></script> -->
+    <!-- <script src="https://tinyurl.com/bootstrap-w3schools"></script> -->
+    <!-- <link rel="stylesheet" href="https://tinyurl.com/minified-CSS"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'covid/css/indianStates.css' %}">
+  </head>
+
+  <body>
+    <a href="{% url 'indianStates' %}">India</a>
+
+    <div id='table' class='container table-responsive text-center'>
+      <h1>Covid tracker</h1>
+
+      <table class="table table-hover table-striped table-bordered">
+
+        <caption>Last Updated On : {{date}}</caption>
+
+        <thead>
+          <tr id='heading' class='bg-info'>
+            <td>Country</td>
+            <td>Confirmed</td>
+            <td>New Confirmed</td>
+            <td>Deaths</td>
+            <td>New Deaths</td>
+            <td>Recovered</td>
+            <td>New Recovered</td>
+          </tr>
+        </thead>
+
+        {% for country in countries %}
+          <!-- {%if country.TotalConfirmed > 300 %} -->
+            <tr>
+              {% if country.Country == "India" %}
+                <td>
+                    <a href="{% url 'indianStates' %}">{{ country.Country }}(Live Statewise)</a><br>
+                    <a href="{% url 'otherCountry' code=country.CountryCode %}">{{ country.Country }}(Overallhistory)</a>
+                </td>
+              {% else %}
+                <td><a href="{% url 'otherCountry' code=country.CountryCode %}">{{ country.Country }}</a></td>
+              {% endif %}
+              <td>{{ country.TotalConfirmed }}</td>
+              <td>{{ country.NewConfirmed }}</td>
+              <td>{{ country.TotalDeaths }}</td>
+              <td>{{ country.NewDeaths }}</td>
+              <td>{{ country.TotalRecovered }}</td>
+              <td>{{ country.NewRecovered }}</td>
+            </tr>
+          <!-- {%endif%} -->
+        {% endfor %}
+
+        <tr id='total' class='bg-success text-white'>
+          <td>Total</td>
+          <td>{{ world.TotalConfirmed }}</td>
+          <td>{{ world.NewConfirmed }}</td>
+          <td>{{ world.TotalDeaths }}</td>
+          <td>{{ world.NewDeaths }}</td>
+          <td>{{ world.TotalRecovered }}</td>
+          <td>{{ world.NewRecovered }}</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

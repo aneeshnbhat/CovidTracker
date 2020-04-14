@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div id='table' class='container table-responsive text-center'>
+      <h1>{{ countryName }}</h1>
+
+      <table class="table table-hover table-striped table-bordered">
+        <thead>
+          <tr id='heading' class='bg-info'>
+            <!-- <td>Country</td> -->
+            <td>Confirmed</td>
+            <td>New Confirmed</td>
+            <td>Deaths</td>
+            <td>New Deaths</td>
+            <td>Recovered</td>
+            <td>New Recovered</td>
+            <td>Date</td>
+          </tr>
+        </thead>
+
+        {% for c in country %}
+          <tr>
+            <td>{{ c.confirmed }}</td>
+            <td>{{ c.new_confirmed }}</td>
+            <td>{{ c.deaths }}</td>
+            <td>{{ c.new_deaths }}</td>
+            <td>{{ c.recovered }}</td>
+            <td>{{ c.new_recovered }}</td>
+            <td>{{ c.date }}</td>
+          </tr>
+        {% endfor %}
+
+      </table>
+
+    </div>
+    <!-- {{ country }} -->
+  </body>
+</html>
